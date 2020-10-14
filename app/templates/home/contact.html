@@ -5,14 +5,6 @@
 Contact Page
 {% endblock title %}
 {% block body %}
-{% if deliverd %}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Message Sent Successfully!</strong> Our team will respond you soon...
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-{% endif %}
 <div class="container border bg-light py-4">
     <h1>Contact US</h1>
     <form action="/contacts/" method="POST">{% csrf_token %}
