@@ -8,6 +8,7 @@ class Contact(models.Model):
     mobileNumber= models.CharField(max_length=13, null=True, default='')
     messageTitle= models.CharField(max_length=500, default='NA')
     messageBody= models.CharField(max_length=1000, default='NA')
+    tmeStamp= models.TimeField(auto_now=True, blank=True)
     def __str__(self):
         return self.messageTitle
     
