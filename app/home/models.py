@@ -10,7 +10,7 @@ class Contact(models.Model):
     messageBody= models.CharField(max_length=1000, default='NA')
     tmeStamp= models.TimeField(auto_now=True, blank=True)
     def __str__(self):
-        return self.messageTitle
+        return f'{self.name}({self.email}) - {self.messageTitle[0:50]}...'
     
 
 
