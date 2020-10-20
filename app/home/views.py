@@ -1,10 +1,17 @@
 from django.shortcuts import render,HttpResponse
 from home.models import Contact
+from myblog.models import post
 from django.contrib import messages
 
 # Create your views here.
 def home(request):
-    return render(request, 'home/index.html',{'endp':'home'})
+    posts= post.objects.all()[:3]
+    print(posts)
+    context= {
+        'endp': 'home',
+        'posts':posts
+        }
+    return render(request, 'home/index.html',context)
 def contact(request):
     if request.method=='POST':
         name= request.POST.get('name','')

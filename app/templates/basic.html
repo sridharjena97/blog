@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -11,14 +12,14 @@
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <title>{% block title %}{% endblock title %}</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     {% block css %}
     {% endblock css %}
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-indigo-500">
         <a class="navbar-brand" href="/">
-            {% load static %}
             <img src="{% static 'home/logo.jpg' %}" width="30" height="30" alt="logo" loading="lazy">
           </a>
         {% comment %} <a class="navbar-brand" href="/">Blogger</a> {% endcomment %}
@@ -29,19 +30,22 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item {% if endp == 'home' %}active bg-success{% endif %}">
+                <li class="nav-item {% if endp == 'home' %}active bg-dark{% endif %}">
                     <a class="nav-link" href="/">Home </a>
                 </li>
-                <li class="nav-item {% if endp == 'contact' %}active bg-success{% endif %}">
+                <li class="nav-item {% if endp == 'blog' %}active bg-dark{% endif %}">
+                    <a class="nav-link" href="/blog/">Blogs</a>
+                </li>
+                <li class="nav-item {% if endp == 'contact' %}active bg-dark{% endif %}">
                     <a class="nav-link" href="/contacts/">Contact US</a>
                 </li>
-                <li class="nav-item {% if endp == 'about' %}active bg-success{% endif %}">
+                <li class="nav-item {% if endp == 'about' %}active bg-dark{% endif %}">
                     <a class="nav-link" href="/about/">About US</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2 border boder-dark" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
     </nav>
@@ -55,7 +59,6 @@
       {% endfor %} 
     {% block body %}
     {% endblock body %}
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -3,7 +3,7 @@ FROM python:3.8-alpine
 ENV PATH="/scripts:${PATH}"
 
 COPY ./requirements.txt /requirements.txt
-RUN apk add --update --no-cache --virtual .tmp gcc libc-dev linux-headers
+RUN apk add --update --no-cache --virtual .tmp gcc libc-dev linux-headers python3-dev jpeg-dev zlib-dev
 RUN pip install uWSGI==2.0.18
 RUN pip install -r /requirements.txt
 RUN apk del .tmp
