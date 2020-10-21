@@ -128,6 +128,7 @@ MEDIA_URL = '/static/media/'
 
 STATIC_ROOT = '/vol/web/static'
 MEDIA_ROOT = '/vol/web/media'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MESSAGE_TAGS = {
     messages.ERROR:'danger'
 }

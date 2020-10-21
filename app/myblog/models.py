@@ -12,10 +12,10 @@ class post(models.Model):
     title= models.CharField(max_length=500)
     desc= models.TextField(default='')
     content= models.TextField()
-    author= models.CharField(max_length=50)
+    author= models.ForeignKey('author', on_delete= models.RESTRICT)
     clickRate= models.IntegerField(default=0)
-    category= models.CharField(max_length=50, blank=True, choices=blog_cat)
-    slug= models.CharField(max_length=200,unique=True)
+    category= models.ForeignKey('category', on_delete= models.CASCADE)
+    slug= models.SlugField(max_length=200,unique=True)
     time= models.DateTimeField(blank=True)
     image= models.ImageField(default='default_image_post.jpg')
     def __str__(self):
@@ -28,4 +28,8 @@ class category(models.Model):
     time= models.TimeField(auto_now=True)
     def __str__(self):
         return self.name
+class author(models.Model):
+    name= models.CharField(max_length=50, blank=True, choices=blog_cat)
+    about= models.CharField(max_length=500)
+    image= models.ImageField(default='default_image_auth.jpg')
     

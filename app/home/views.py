@@ -1,15 +1,16 @@
 from django.shortcuts import render,HttpResponse
 from home.models import Contact
-from myblog.models import post
+from myblog.models import post,category
 from django.contrib import messages
 
 # Create your views here.
 def home(request):
     posts= post.objects.all()[:3]
-    print(posts)
+    cats= category.objects.all()
     context= {
         'endp': 'home',
-        'posts':posts
+        'posts':posts,
+        'categories': cats
         }
     return render(request, 'home/index.html',context)
 def contact(request):
