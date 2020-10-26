@@ -26,3 +26,10 @@ def contact(request):
     return render(request, 'home/contact.html', {'endp':'contact'})
 def about(request):
     return render(request, 'home/about.html', {'endp':'about'})
+def search(request):
+    query=request.GET['query']
+    posts= post.objects.filter(title__icontains=query)
+    context= {
+        'posts':posts,
+        }
+    return render(request, 'home/search.html', context)

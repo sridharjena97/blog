@@ -29,7 +29,10 @@ class category(models.Model):
     def __str__(self):
         return self.name
 class author(models.Model):
-    name= models.CharField(max_length=50, blank=True, choices=blog_cat)
+    name= models.CharField(max_length=50, blank=True)
     about= models.CharField(max_length=500)
+    designation= models.CharField(max_length=100, default='')
     image= models.ImageField(default='default_image_auth.jpg')
+    def __str__(self):
+        return self.name
     
