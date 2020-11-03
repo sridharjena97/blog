@@ -28,8 +28,22 @@ def about(request):
     return render(request, 'home/about.html', {'endp':'about'})
 def search(request):
     query=request.GET['query']
-    posts= post.objects.filter(title__icontains=query)
-    context= {
-        'posts':posts,
-        }
+    if len(query)>50:
+        posts= post.objects.none()
+        print('no post')
+    else:
+        postTitle= post.objects.filter(title__icontains=query)
+        postDesc= post.objects.filter(desc__icontains=query)
+        posts= postTitle.union(postDesc)
+    print(posts.count())
+    if posts.count()== 0:
+        context= {
+            'query':query,
+            }
+    else:
+        context= {
+            'posts':posts,
+            'resultFound':True,
+            'query':query,
+            }
     return render(request, 'home/search.html', context)

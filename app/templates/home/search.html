@@ -8,6 +8,7 @@ Search Page
 {% block body %}
 <!-- catagories -->
 <div class="container">
+{% if resultFound %}
     <!-- posts -->
   <hr>
   <div class="container text-center mt-3">
@@ -40,7 +41,23 @@ Search Page
     </div>
   </div>
 </section>
+{% else %}
+  <div class="jumbotron my-4">
+  <h1 class="display-4">No results Found!</h1>
+  <p class="lead">We found no result for your query "{{query}}"</p>
+  <hr class="my-4">
+  <p class="my-2">Suggestions:</p>
+<ul class="ml-4" style="list-style: disc;!important">
+<li>Make sure that all words are spelled correctly.</li>
+<li>Try different keywords.</li>
+<li>Try more general keywords.</li>
+</ul>
+</div>
+    {% endif %}
 </div>
 {% endblock body %}
 {% block script %}
+<script>
+$('#query').val('{{query}}')
+</script>
 {% endblock script %}
