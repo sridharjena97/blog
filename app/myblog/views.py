@@ -11,7 +11,17 @@ def blogHome(request):
         }
     return render(request,'myblog/blogHome.html', context)
 def blogPost(request,slug):
-    return HttpResponse(f'this is blog for {slug}')
+    try:
+        posts= post.objects.get(slug=slug)
+        context= {
+            'post':posts,
+            'found':True
+            }   
+    except: 
+        context= {
+            'found':False
+            } 
+    return render(request,'myblog/blogView.html',context)
 def allCat(request):
     cats= category.objects.all()
     context= {
