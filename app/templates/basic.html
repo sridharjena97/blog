@@ -73,7 +73,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" action="/signup/">{% csrf_token %}
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">First Name</label>
@@ -87,7 +87,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="sEmail" name="sEmail">
+                                <input type="text" class="form-control" id="sEmail" name="sEmail">
                             </div>
                         </div>
                         <div class="form-row">

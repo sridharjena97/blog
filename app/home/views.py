@@ -1,7 +1,9 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse, redirect
 from home.models import Contact
 from myblog.models import post,category
 from django.contrib import messages
+from django.contrib.auth.models import User
+import re
 
 # Create your views here.
 def home(request):
@@ -47,3 +49,39 @@ def search(request):
             'query':query,
             }
     return render(request, 'home/search.html', context)
+def handleSignup(request):
+    if request.method== 'POST':
+        fname= request.POST['fname']
+        lname= request.POST['lname']
+        sEmail= request.POST['sEmail']
+        sUserName= request.POST['sUserName']
+        sPassword= request.POST['sPassword']
+        cPassword= request.POST['cPassword']
+        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        # checks for data received
+        if User.objects.filter(username=sUserName).count()>0:
+            messages.error(request,"user name already taken. Try with diiferent username")
+            return redirect('home')
+        if User.objects.filter(email=sEmail).count()>0:
+            messages.error(request,"Email already registered. Try to login or Use a different email address")
+            return redirect('home')
+        if len(fname)<3 or len(lname)<3 or len(sEmail)<10 or len(sUserName)<8 or len(sPassword)<8:
+            messages.error(request,"Check length of chracters entered and try again.")
+            return redirect('home')
+        if sPassword != cPassword:
+            messages.error(request,"Password Does not match. Please Try again.")
+            return redirect('home')
+        if (re.search(regex,sEmail)) == None:
+            messages.error(request,"Enter a valid email")
+            return redirect('home')
+        if not sUserName.isalnum():
+            messages.error(request,"Enter a valid username")
+            return redirect('home')
+            
+        # creating user
+        myUser= User.objects.create_user(username=sUserName,email=sEmail,password=sPassword,first_name=fname,last_name=lname)
+        myUser.save()
+        messages.success(request,"you are successfully signedup to our website.")
+        return redirect('home')
+    else:
+        return HttpResponse('404- Not Found')
