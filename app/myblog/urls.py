@@ -18,6 +18,7 @@ from . import views
 
 urlpatterns = [
     path('', views.blogHome , name='blogHome'),
+    path('comment', views.blogComment , name='blogComment'),
     path('<str:slug>', views.blogPost , name='blogPost'),
     path('catview/allcat', views.allCat , name='allcat'),
     path('catview/cat/<str:cat>', views.catView , name='catview'),

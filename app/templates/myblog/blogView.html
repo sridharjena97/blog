@@ -1,5 +1,6 @@
 {% extends 'basic.html' %}
 {% load static %}
+{% load extras %}
 {% block title %} Blog: {{post.title}}
 {% endblock title %}
 {% block css %}
@@ -9,8 +10,8 @@
 {% if found %}
 <!-- post details -->
 <div class="container mt-3">
-<section class="text-gray-700 body-font">
-  
+  <section class="text-gray-700 body-font">
+
     <div class="lg:w-4/6 mx-auto">
       <div class="rounded-lg h-64 overflow-hidden">
         <img alt="content" class="object-cover object-center h-full w-full" src="/static/media/{{post.image}}">
@@ -22,8 +23,69 @@
         </section>
       </div>
     </div>
-  </div>
+</div>
 </section>
+<div class="container bg-gray-300 my-4 pb-3">
+  <h2 class="display-4 my-3">Comments({{comments.count}})</h2>
+  <!-- Comment Area -->
+  {% if user.is_authenticated %}
+  <form class="my-4" method="POST" action="/blog/comment">{% csrf_token %}
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1"><small class="text-muted">Post Your Comment Here</small></label>
+      <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <input type="hidden" name="serial" value="{{post.srl}}">
+      <input type="hidden" name="parentSno" value="">
+    </div>
+    <button class="btn btn-primary" type="submit">Comment</button>
+  </form>
+  {% else %}
+  <h3 class="my-4 text-purple-500 font-weight-bolder text-xl "><a class="pointer" data-toggle="modal"
+      data-target="#loginModal"><u class="text-3xl">Login</u></a> to comment on this post.</h3>
+  {% endif %}
+  <!-- comment View -->
+  {% for comment in comments %}
+  <div class="media">
+    <img src="..." class="mr-3" alt="...">
+    <div class="media-body">
+      <h5 class="mt-0">{{comment.user}}</h5>
+      {{comment.comment}}.
+      <br>
+      <!-- reply button -->
+      <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}"
+        aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
+        Reply
+      </button>
+      <!-- reply textarea -->
+      <div class="collapse" id="replyBox{{comment.sno}}">
+        <div class="card card-body my-2">
+          <form action="/blog/comment" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="comment">Post a reply </label>
+              <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+              <input type="hidden" name="parentSno" value="{{comment.sno}}">
+            </div>
+            <input type="hidden" name="serial" value="{{post.srl}}">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+      <!-- rendering replies -->
+      {% for reply in replyDict|get_val:comment.sno %}
+      <div class="media mt-3">
+        <a class="mr-3" href="#">
+          <img src="#" class="mr-3" width="100" alt="...">
+        </a>
+        <div class="media-body">
+          <h5 class="mt-0">{{reply.user}}</h5>
+          {{reply.comment}}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
 </div>
 {% else %}
 <!-- error handeled here -->

@@ -54,6 +54,7 @@ def search(request):
             'query':query,
             }
     return render(request, 'home/search.html', context)
+# API for application
 # handling signup
 def handleSignup(request):
     if request.method== 'POST':
@@ -103,6 +104,7 @@ def handleLogin(request):
             return redirect('home')
         else:
             messages.error(request,"Invalid Credentials. Please tray again.")
+            return redirect('home')
     else:
         return HttpResponse("404-Not Found")
 # handling logout

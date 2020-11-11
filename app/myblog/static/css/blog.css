@@ -1,3 +1,6 @@
 #blogHeading{
 width: auto;
 }
+.pointer{
+    cursor: pointer;
+}
