@@ -1,6 +1,7 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% load extras %}
+{% load humanize %}
 {% block title %} Blog: {{post.title}}
 {% endblock title %}
 {% block css %}
@@ -44,10 +45,10 @@
   {% endif %}
   <!-- comment View -->
   {% for comment in comments %}
-  <div class="media">
+  <div class="media mt-3">
     <img src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" width="30vw" class="mr-3" alt="...">
     <div class="media-body">
-      <h5 class="mt-0 font-extrabold">{{comment.user}}</h5>
+      <h5 class="mt-0 font-extrabold">{{comment.user}}<span class="badge badge-pill badge-light ml-2">{{comment.time|naturaltime}}</span></h5>
       {{comment.comment}}.
       <br>
       <!-- reply button -->
