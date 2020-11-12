@@ -45,16 +45,17 @@
   <!-- comment View -->
   {% for comment in comments %}
   <div class="media">
-    <img src="..." class="mr-3" alt="...">
+    <img src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" width="30vw" class="mr-3" alt="...">
     <div class="media-body">
-      <h5 class="mt-0">{{comment.user}}</h5>
+      <h5 class="mt-0 font-extrabold">{{comment.user}}</h5>
       {{comment.comment}}.
       <br>
       <!-- reply button -->
-      <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}"
+      {% if user.is_authenticated %}
+      <a class="text-primary" type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}"
         aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
         Reply
-      </button>
+      </a>
       <!-- reply textarea -->
       <div class="collapse" id="replyBox{{comment.sno}}">
         <div class="card card-body my-2">
@@ -70,15 +71,18 @@
           </form>
         </div>
       </div>
+      {% else %}
+      <a class="text-primary" data-target="#loginModal"
+        data-toggle="modal">
+         Login to Reply
+      </a>
+      {% endif %}
       <!-- rendering replies -->
       {% for reply in replyDict|get_val:comment.sno %}
-      <div class="media mt-3">
-        <a class="mr-3" href="#">
-          <img src="#" class="mr-3" width="100" alt="...">
-        </a>
-        <div class="media-body">
-          <h5 class="mt-0">{{reply.user}}</h5>
-          {{reply.comment}}
+      <div class="media mt-0 ml-4">
+        <div class="row mt-0">
+          <p class="font-semibold mr-3">{{reply.user}}</p>
+          <span>{{reply.comment}}</span>
         </div>
       </div>
       {% endfor %}

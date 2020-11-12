@@ -97,14 +97,15 @@ def handleLogin(request):
     if request.method== 'POST':
         username= request.POST['username']
         password= request.POST['password']
+        requestURL= request.POST['url']
         user= authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
             messages.success(request,"Successfully Logged In")
-            return redirect('home')
+            return redirect(requestURL)
         else:
             messages.error(request,"Invalid Credentials. Please tray again.")
-            return redirect('home')
+            return redirect(requestURL)
     else:
         return HttpResponse("404-Not Found")
 # handling logout
