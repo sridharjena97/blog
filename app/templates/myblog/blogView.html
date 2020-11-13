@@ -6,6 +6,7 @@
 {% endblock title %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<link rel="stylesheet" href="{% static 'css/removeTailwnd.css' %}">
 {% endblock css %}
 {% block body %}
 {% if found %}
@@ -19,21 +20,24 @@
       </div>
       <div class="container">
         <div class="mb-4 mt-1">
-        <h1 class="display-4 text-capitalize">{{post.title}}</h1>
-        <p class="text-muted"><b>Posted by: </b><u>{{post.author}} on {{post.time}}</u><span class="ml-3"><svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-eye-fill d-inline" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-  <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-</svg> {{post.clickRate|intword|intcomma}} Views</span></p>
+          <h1 class="display-4 text-capitalize">{{post.title}}</h1>
+          <p class="text-muted"><b>Posted by: </b><u>{{post.author}} on {{post.time}}</u><span class="ml-3"><svg
+                width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-eye-fill d-inline" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                <path fill-rule="evenodd"
+                  d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+              </svg> {{post.clickRate|intword|intcomma}} Views</span></p>
         </div>
-        <section class="font-weight-normal">
-          {{post.content}}
+        <section class="font-weight-normal disableTailwind">
+          {{post.content|safe}}
         </section>
       </div>
     </div>
 </div>
 </section>
-<div class="container bg-gray-300 my-4 pb-3 mx-auto lg:w-4/6">
-  <h2 class="display-4 my-3">Comments({{comments.count}})</h2>
+<div class="container-sm bg-gray-300 my-4 pb-3 mx-auto lg:w-4/6">
+  <h2 class="my-3">Comments({{comments.count}})</h2>
   <!-- Comment Area -->
   {% if user.is_authenticated %}
   <form class="my-4" method="POST" action="/blog/comment">{% csrf_token %}
@@ -52,9 +56,11 @@
   <!-- comment View -->
   {% for comment in comments %}
   <div class="media mt-3">
-    <img src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" width="30vw" class="mr-3" alt="...">
+    <img src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png"
+      width="30vw" class="mr-3" alt="...">
     <div class="media-body">
-      <h5 class="mt-0 font-extrabold">{{comment.user}}<span class="badge badge-pill badge-light ml-2">{{comment.time|naturaltime}}</span></h5>
+      <h5 class="mt-0 font-extrabold">{{comment.user}}<span
+          class="badge badge-pill badge-light ml-2">{{comment.time|naturaltime}}</span></h5>
       {{comment.comment}}.
       <br>
       <!-- reply button -->
@@ -79,9 +85,8 @@
         </div>
       </div>
       {% else %}
-      <a class="text-primary" data-target="#loginModal"
-        data-toggle="modal">
-         Login to Reply
+      <a class="text-primary" data-target="#loginModal" data-toggle="modal">
+        Login to Reply
       </a>
       {% endif %}
       <!-- rendering replies -->
@@ -111,3 +116,11 @@
 
 {% endif %}
 {% endblock body %}
+{% block script %}
+<script>
+$(document).ready(function(){
+$("h2,h3,h4,h5,h6").css("font-size","revert");
+});
+console.log("i am injected")
+</script>
+{% endblock script %}

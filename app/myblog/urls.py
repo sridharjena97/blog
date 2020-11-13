@@ -17,10 +17,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.blogHome , name='blogHome'),
-    path('comment', views.blogComment , name='blogComment'),
-    path('<str:slug>', views.blogPost , name='blogPost'),
-    path('catview/allcat', views.allCat , name='allcat'),
-    path('catview/cat/<str:cat>', views.catView , name='catview'),
-    path('author/<str:auth>', views.authView , name='authview'),
+    path('comment', views.blogComment , name='blogComment'), #Endpoint for comment API
+    path('<str:slug>', views.blogPost , name='blogPost'), #enpoint for viewing blog
+    path('catview/allcat', views.allCat , name='allcat'), #endpoint for viewing all cats
+    path('catview/cat/<str:cat>', views.catView , name='catview'), #endpoint for viewing posts within a cat
+    path('author/<str:auth>', views.authView , name='authview'), #endpoint for viewing author profile
 ]

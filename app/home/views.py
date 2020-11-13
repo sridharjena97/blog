@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 import re
 
 # Create your views here.
-# Homepage
+# Homepage/landing page
 def home(request):
     posts= post.objects.all()[:3]
     cats= category.objects.all()
@@ -37,12 +37,10 @@ def search(request):
     query=request.GET['query']
     if len(query)>50:
         posts= post.objects.none()
-        print('no post')
     else:
         postTitle= post.objects.filter(title__icontains=query)
         postDesc= post.objects.filter(desc__icontains=query)
         posts= postTitle.union(postDesc)
-    print(posts.count())
     if posts.count()== 0:
         context= {
             'query':query,

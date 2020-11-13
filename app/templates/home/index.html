@@ -6,6 +6,7 @@
 Welcome Page
 {% endblock title %}
 {% block body %}
+<!-- carousel -->
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -76,7 +77,8 @@ Welcome Page
             </div>
             <div class="flex-grow pl-6">
               <h2 class="tracking-widest text-xs title-font font-medium text-indigo-500 mb-1">{{post.category}}</h2>
-              <h1 class="title-font text-xl font-medium text-gray-900 mb-3">{{post.title}} <small class="text-muted">({{post.clickRate}} Views)</small></h1>
+              <h1 class="title-font text-xl font-medium text-gray-900 mb-3">{{post.title}} <small
+                  class="text-muted">({{post.clickRate}} Views)</small></h1>
               <p class="leading-relaxed mb-5 text-break">{{post.desc|truncatechars:200}}<a
                   class="text-indigo-500 inline-flex items-center" href="/blog/{{post.slug}}">Learn More
                   <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

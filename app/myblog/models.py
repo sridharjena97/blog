@@ -2,12 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 # Create your models here.
+# add blog categories here
 blog_cat = (
         ('TECHNOLOGY','tech'),
         ('PYTHON','py'),
         ('JAVA SCRIPT','js'),
         ('JAVA','java'),
     )
+# Model for creating new blog posts
 class post(models.Model):
     srl= models.AutoField(primary_key=True)
     title= models.CharField(max_length=500)
@@ -21,6 +23,7 @@ class post(models.Model):
     image= models.ImageField(default='default_image_post.jpg')
     def __str__(self):
         return f"{self.title} (written by {self.author})"
+# Model for creating new category
 class category(models.Model):
     srl= models.AutoField(primary_key=True)
     name= models.CharField(max_length=50, blank=True, choices=blog_cat)
@@ -29,6 +32,7 @@ class category(models.Model):
     time= models.TimeField(auto_now=True)
     def __str__(self):
         return self.name
+#  Model for creating new author profile
 class author(models.Model):
     name= models.CharField(max_length=50, blank=True)
     about= models.CharField(max_length=500)
@@ -36,6 +40,7 @@ class author(models.Model):
     image= models.ImageField(default='default_image_auth.jpg')
     def __str__(self):
         return self.name
+# Model for comment
 class BlogComment(models.Model):
     sno= models.AutoField(primary_key=True)
     comment= models.TextField()

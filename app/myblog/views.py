@@ -4,15 +4,6 @@ from django.contrib import messages
 from myblog.templatetags import extras
 
 # Create your views here.
-# Home page
-def blogHome(request):
-    posts= post.objects.all()
-    print(posts)
-    context= {
-        'endp': 'blog',
-        'posts':posts
-        }
-    return render(request,'myblog/blogHome.html', context)
 # Blog Post View page
 def blogPost(request,slug):
     try:
@@ -51,7 +42,6 @@ def allCat(request):
 def catView(request,cat):
     posts= post.objects.filter(category=cat)
     cat= category.objects.get(srl=cat)
-    print(cat)
     context= {
         'posts':posts,
         'cat':cat
